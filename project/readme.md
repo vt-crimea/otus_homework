@@ -21,3 +21,4 @@ https://www.postgresql.org/docs/current/protocol-flow.html
 Может работать как на сервере PostreSQL, так и на клиенте.
 
 
+https://github.com/vt-crimea/pgtracer
