@@ -34,9 +34,7 @@ https://github.com/vt-crimea/otus_homework/blob/main/project/query_trace.sql
 
 Источники:
 Описание сетевого протокола PostgreSQL:
-https://github.com/vt-crimea/otus_homework/blob/main/project/330_postgres-for-the-wire.pdf
-
-https://www.postgresql.org/docs/
-https://metanit.com/go/
+https://github.com/vt-crimea/otus_homework/blob/main/project/330_postgres-for-the-wire.pdf,
+https://www.postgresql.org/docs/,https://metanit.com/go/
 
 
