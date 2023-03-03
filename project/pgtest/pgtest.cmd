@@ -1,0 +1,1 @@
+pgtest.exe "user=postgres dbname=test password=123456 host=127.0.0.1 port=5433 sslmode=disable"
