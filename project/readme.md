@@ -20,5 +20,11 @@ https://www.postgresql.org/docs/current/protocol-flow.html
 Утилита представляет из себя tcp-сниффер с парсингом пакетов, с возможностью сохранения их в БД и веб-интерфейсом для удобства просмотра.
 Может работать как на сервере PostreSQL, так и на клиенте.
 
-
+Сам проект:
 https://github.com/vt-crimea/pgtracer
+
+Скрипты для создания тестовой БД:
+https://github.com/vt-crimea/otus_homework/blob/main/project/test_db.sql
+
+Пример запроса к полученным данным:
+https://github.com/vt-crimea/otus_homework/blob/main/project/query_trace.sql
