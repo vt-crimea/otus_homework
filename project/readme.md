@@ -26,5 +26,9 @@ https://github.com/vt-crimea/pgtracer
 Скрипты для создания тестовой БД:
 https://github.com/vt-crimea/otus_homework/blob/main/project/test_db.sql
 
+Тестовый пример вызова функции с параметрами из приложения:
+https://github.com/vt-crimea/otus_homework/tree/main/project/pgtest
+
 Пример запроса к полученным данным:
 https://github.com/vt-crimea/otus_homework/blob/main/project/query_trace.sql
+
