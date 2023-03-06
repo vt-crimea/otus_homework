@@ -91,7 +91,7 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 Затем дал права пользователю postgres и настроил разрешения для папки /mnt/data (как это делал для 1го сервера)</br>
 <img width="332" alt="26_chowm_chmod" src="https://user-images.githubusercontent.com/44090170/223194534-9c044f94-3708-4b4b-8721-4861443bcd76.png"></br>
 
-После чего запустил Postgres и проверил наличие данных:
+После чего запустил Postgres и проверил наличие данных:</br>
 <img width="475" alt="27_pg_working" src="https://user-images.githubusercontent.com/44090170/223195082-2234e076-6046-4aa3-ac04-2cd47b727ae9.png"></br>
 
 Все работает, все на месте
