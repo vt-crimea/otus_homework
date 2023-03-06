@@ -48,3 +48,31 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 ### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
 <img width="290" alt="14_chown" src="https://user-images.githubusercontent.com/44090170/223164651-3fd1ef33-324f-45e8-b795-b21e42776b1f.png"></br>
 
+### перенесите содержимое /var/lib/postgresql/14 в /mnt/data:
+<img width="901" alt="15_move_pg_files" src="https://user-images.githubusercontent.com/44090170/223166958-3c6597ae-be8f-440a-9e00-178a8082aba7.png">
+
+### попытайтесь запустить кластер - sudo -u postgres pg_ctlcluster 14 main start
+<img width="939" alt="16_start_postgres" src="https://user-images.githubusercontent.com/44090170/223167547-e1d5c0aa-2ba1-462c-a010-54daee94b848.png"></br>
+Не получилось, ведь postgres пытается найти каталог данных по старому пути. </br>
+
+### задание: найти конфигурационный параметр в файлах раположенных в /etc/postgresql/14/main который надо поменять и поменяйте его
+В файле postgreql.conf надо поменять параметр data_directory: </br>
+<img width="460" alt="17_change_dir" src="https://user-images.githubusercontent.com/44090170/223168902-e1133bb7-a623-4e5b-91ec-a874426db89c.png">
+
+### попытайтесь запустить кластер - sudo -u postgres pg_ctlcluster 14 main start
+### напишите получилось или нет и почему
+<img width="951" alt="18_start_error_no_permission" src="https://user-images.githubusercontent.com/44090170/223170124-01f388e3-6217-4d30-94e7-63768c3928bd.png"> </br>
+не получилось, т.к. не настроены разрешения на доступ к каталогу /mnt/data </br>
+<img width="497" alt="19_chmod_then_start" src="https://user-images.githubusercontent.com/44090170/223170893-d84d4278-e6e2-4a48-843c-f85729aa86d7.png"> </br>
+теперь получилось
+
+### зайдите через через psql и проверьте содержимое ранее созданной таблицы
+<img width="330" alt="20_psql_select" src="https://user-images.githubusercontent.com/44090170/223172276-1e0507e8-a3fc-4836-bf98-45c1c3124a61.png"> </br>
+Таблица на месте.
+
+### задание со звездочкой \*: не удаляя существующий инстанс ВМ сделайте новый, поставьте на его PostgreSQL, удалите файлы с данными из /var/lib/postgres, перемонтируйте внешний диск который сделали ранее от первой виртуальной машины ко второй и запустите PostgreSQL на второй машине так чтобы он работал с данными на внешнем диске, расскажите как вы это сделали и что в итоге получилось.
+
+
+
+
+
