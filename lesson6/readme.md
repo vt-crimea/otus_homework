@@ -24,22 +24,23 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 В моем случае создаю новый диск для VirtualBox:
 <img width="770" alt="4_create_disk_vbox" src="https://user-images.githubusercontent.com/44090170/223139286-b0efe430-53eb-45d2-a42c-5e2358083065.png">
 ### проинициализируйте диск согласно инструкции и подмонтировать файловую систему
-Нашли наш диск, это /dev/sdb:
-<img width="353" alt="6_lsblk" src="https://user-images.githubusercontent.com/44090170/223162438-0d54fec1-7e94-4922-a6e3-553fcaad0b61.png">
-<img width="353" alt="6_lsblk" src="https://user-images.githubusercontent.com/44090170/223162139-7a5f976c-a26b-4546-8435-2ced9f9484b9.png">
 
-Далее по инструкции создаем метку, размечаем и создаем файловую систему:
-<img width="292" alt="8_parted" src="https://user-images.githubusercontent.com/44090170/223162972-d139ab65-5c25-4c3b-8dcc-18a594d0fad9.png">
-<img width="383" alt="9_create_fs" src="https://user-images.githubusercontent.com/44090170/223162993-f7a7d1b9-4d55-426c-babb-fb7c77a22d3f.png">
+Нашли наш диск, это /dev/sdb: </br>
+<img width="353" alt="6_lsblk" src="https://user-images.githubusercontent.com/44090170/223162438-0d54fec1-7e94-4922-a6e3-553fcaad0b61.png"></br>
+<img width="353" alt="6_lsblk" src="https://user-images.githubusercontent.com/44090170/223162139-7a5f976c-a26b-4546-8435-2ced9f9484b9.png"></br>
 
-Успешно:
-<img width="681" alt="10_lsblk_after_create_fs" src="https://user-images.githubusercontent.com/44090170/223163035-2dee38ce-dfaf-426d-90ef-7d0924c1c693.png">
+Далее по инструкции создаем метку, размечаем и создаем файловую систему:</br>
+<img width="292" alt="8_parted" src="https://user-images.githubusercontent.com/44090170/223162972-d139ab65-5c25-4c3b-8dcc-18a594d0fad9.png"></br>
+<img width="383" alt="9_create_fs" src="https://user-images.githubusercontent.com/44090170/223162993-f7a7d1b9-4d55-426c-babb-fb7c77a22d3f.png"></br>
 
-Создаем папку /mnt/data и монтируем:
-<img width="293" alt="11_mount" src="https://user-images.githubusercontent.com/44090170/223163128-5d1110f2-dbe2-452d-b9e3-8db5ef22e8b7.png">
+Успешно:</br>
+<img width="681" alt="10_lsblk_after_create_fs" src="https://user-images.githubusercontent.com/44090170/223163035-2dee38ce-dfaf-426d-90ef-7d0924c1c693.png"></br>
 
-Сразу меняем fstab, чтобы после загрузки наш диск примонтировался автоматически:
-<img width="604" alt="12_fstab_edit" src="https://user-images.githubusercontent.com/44090170/223163528-63d54c29-7fbe-481a-b2de-7d650f036c36.png">
+Создаем папку /mnt/data и монтируем:</br>
+<img width="293" alt="11_mount" src="https://user-images.githubusercontent.com/44090170/223163128-5d1110f2-dbe2-452d-b9e3-8db5ef22e8b7.png"></br>
+
+Сразу меняем fstab, чтобы после загрузки наш диск примонтировался автоматически:</br>
+<img width="604" alt="12_fstab_edit" src="https://user-images.githubusercontent.com/44090170/223163528-63d54c29-7fbe-481a-b2de-7d650f036c36.png"></br>
 
 перезагружаем и проверяем:
 <img width="690" alt="13_lsblk_after_reboot" src="https://user-images.githubusercontent.com/44090170/223163606-d5a53e9e-1154-4181-aca9-d2df0680a8cd.png">
