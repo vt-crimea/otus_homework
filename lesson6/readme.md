@@ -43,6 +43,8 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 <img width="604" alt="12_fstab_edit" src="https://user-images.githubusercontent.com/44090170/223163528-63d54c29-7fbe-481a-b2de-7d650f036c36.png"></br>
 
 перезагружаем и проверяем:</br>
-<img width="690" alt="13_lsblk_after_reboot" src="https://user-images.githubusercontent.com/44090170/223163606-d5a53e9e-1154-4181-aca9-d2df0680a8cd.png">
+<img width="690" alt="13_lsblk_after_reboot" src="https://user-images.githubusercontent.com/44090170/223163606-d5a53e9e-1154-4181-aca9-d2df0680a8cd.png"></br>
 
+### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
+<img width="290" alt="14_chown" src="https://user-images.githubusercontent.com/44090170/223164651-3fd1ef33-324f-45e8-b795-b21e42776b1f.png"></br>
 
