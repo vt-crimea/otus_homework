@@ -79,6 +79,24 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 >$ sudo apt-get install postgresql</br>
 <img width="401" alt="22_postgresql_ok" src="https://user-images.githubusercontent.com/44090170/223181052-056acb75-8bfd-4088-a182-3179d7d112b4.png"></br>
 
+Подключил ранее созданный диск к виртуальной машине: </br>
+<img width="660" alt="23_connect_disk_to_vbox" src="https://user-images.githubusercontent.com/44090170/223181997-db80f979-4dea-4977-b6ce-40ef8e833837.png"></br>
+
+Подмонтировал наш диск:</br>
+<img width="306" alt="24_mnt" src="https://user-images.githubusercontent.com/44090170/223191994-a686c312-35c2-4c0e-b829-5bd40de9ef68.png"></br>
+
+Проверил, файлы на месте: </br>
+<img width="471" alt="25_mounted_files" src="https://user-images.githubusercontent.com/44090170/223192283-1397d025-1d44-47d4-8fdd-87e2742f6f35.png"></br>
+
+Затем дал права пользователю postgres и настроил разрешения для папки /mnt/data (как это делал для 1го сервера)</br>
+<img width="332" alt="26_chowm_chmod" src="https://user-images.githubusercontent.com/44090170/223194534-9c044f94-3708-4b4b-8721-4861443bcd76.png"></br>
+
+После чего запустил Postgres и проверил наличие данных:
+<img width="475" alt="27_pg_working" src="https://user-images.githubusercontent.com/44090170/223195082-2234e076-6046-4aa3-ac04-2cd47b727ae9.png"></br>
+
+Все работает, все на месте
+
+
 
 
 
