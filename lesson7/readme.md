@@ -247,19 +247,26 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 
 ### 36 есть идеи как убрать эти права? если нет - смотрите шпаргалку
 
->postgres=# revoke CREATE on SCHEMA public FROM public;
+>testdb=# revoke CREATE on SCHEMA public FROM public;
 >
 >REVOKE
 >
->postgres=# revoke all on DATABASE testdb FROM public;
+>testdb=#revoke all on all tables in SCHEMA public FROM public;
 >
 >REVOKE
 
 ### 37 если вы справились сами то расскажите что сделали и почему, если смотрели шпаргалку - объясните что сделали и почему выполнив указанные в ней команды
 
-Мы запретили создание новых объектов в схеме public для роли public, в которую при созданиии влючаются все пользователи, а также запретили доступ ко всему, что уже есть в базе testdb для роли public.
+Мы запретили создание новых объектов в схеме public для роли public, в которую при созданиии влючаются все пользователи, а также запретили доступ ко действиям (SELECT | INSERT | UPDATE | DELETE | TRUNCATE | REFERENCES | TRIGGER ) со всеми таблицамb в схеме public.
 
 
+### 38 теперь попробуйте выполнить команду create table t3(c1 integer); insert into t2 values (2);
+### 39 расскажите что получилось и почему
 
-38 теперь попробуйте выполнить команду create table t3(c1 integer); insert into t2 values (2);
-39 расскажите что получилось и почему
+create не сработал, а вставка сработала
+Чтобы пользователь не мог работать с данными в таблицах надо забрать права непосредственно у него:
+
+>testdb=# revoke all on all tables in SCHEMA public FROM testread;
+>
+>REVOKE
+
