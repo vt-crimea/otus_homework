@@ -200,8 +200,25 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 >ALTER DEFAULT PRIVILEGES
 
 
-31 сделайте select * from testnm.t1;
-32 получилось?
+### 31 сделайте select * from testnm.t1;
+
+>testdb=> select * from testnm.t1;
+>
+>ERROR:  permission denied for table t1
+>
+>testdb=>
+
+### 32 получилось?
+
+Нет, потому что мы выполнили ALTER DEFAULT PRIVILEGES **после** того, как создали таблицу.</br>
+Надо дать права по новой:
+
+(из под postgres)</br>
+>testdb=# GRANT SELECT on all tables IN SCHEMA testnm to readonly;
+>
+>GRANT
+
+
 33 есть идеи почему? если нет - смотрите шпаргалку
 31 сделайте select * from testnm.t1;
 32 получилось?
