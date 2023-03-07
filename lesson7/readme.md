@@ -216,16 +216,50 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 (из под postgres)</br>
 >testdb=# GRANT SELECT on all tables IN SCHEMA testnm to readonly;
 >
->GRANT
+>GRANT</br>
+
+После этого перезаходим под testread и проверяем:
+
+>testdb=> select * from testnm.t1;
+>
+> c1
+> 
+>----
+>
+>(1 rows)
+
+### 33 ура!
+
+### 34 теперь попробуйте выполнить команду create table t2(c1 integer); insert into t2 values (2);
+
+>testdb=> create table t2(c1 integer);
+>
+>CREATE TABLE
+>
+>testdb=> insert into t2 values (2);
+>
+>INSERT 0 1
+>
+>testdb=>
+
+### 35 а как так? нам же никто прав на создание таблиц и insert в них под ролью readonly?
+Очевидно, это права по умолчанию для схемы public
+
+### 36 есть идеи как убрать эти права? если нет - смотрите шпаргалку
+
+>postgres=# revoke CREATE on SCHEMA public FROM public;
+>
+>REVOKE
+>
+>postgres=# revoke all on DATABASE testdb FROM public;
+>
+>REVOKE
+
+### 37 если вы справились сами то расскажите что сделали и почему, если смотрели шпаргалку - объясните что сделали и почему выполнив указанные в ней команды
+
+Мы запретили создание новых объектов в схеме public для роли public, в которую при созданиии влючаются все пользователи, а также запретили доступ ко всему, что уже есть в базе testdb для роли public.
 
 
-33 есть идеи почему? если нет - смотрите шпаргалку
-31 сделайте select * from testnm.t1;
-32 получилось?
-33 ура!
-34 теперь попробуйте выполнить команду create table t2(c1 integer); insert into t2 values (2);
-35 а как так? нам же никто прав на создание таблиц и insert в них под ролью readonly?
-36 есть идеи как убрать эти права? если нет - смотрите шпаргалку
-37 если вы справились сами то расскажите что сделали и почему, если смотрели шпаргалку - объясните что сделали и почему выполнив указанные в ней команды
+
 38 теперь попробуйте выполнить команду create table t3(c1 integer); insert into t2 values (2);
 39 расскажите что получилось и почему
