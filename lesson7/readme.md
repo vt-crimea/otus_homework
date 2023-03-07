@@ -68,10 +68,22 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3
 >
 >GRANT
 
+### 12 создайте пользователя testread с паролем test123
 
-12 создайте пользователя testread с паролем test123
-13 дайте роль readonly пользователю testread
-14 зайдите под пользователем testread в базу данных testdb
+>testdb=# CREATE USER testread WITH PASSWORD 'test123';
+>
+>CREATE ROLE
+
+### 13 дайте роль readonly пользователю testread
+
+>testdb=# GRANT readonly TO testread;
+>
+>GRANT ROLE
+
+### 14 зайдите под пользователем testread в базу данных testdb
+
+
+
 15 сделайте select * from t1;
 16 получилось? (могло если вы делали сами не по шпаргалке и не упустили один существенный момент про который позже)
 17 напишите что именно произошло в тексте домашнего задания
