@@ -27,7 +27,9 @@ https://github.com/vt-crimea/otus_homework/tree/main/lesson3</br>
 процессор у нас один с одним ядром, поэтому сразу выставляем:</br>
 Alter system set autovacuum_max_workers=1;</br>
 Больше не имеет смысла.</br>
-Остальное по умолчанию:
+
+Остальное по умолчанию:</br>
+
 autovacuum	on </br>
 autovacuum_analyze_scale_factor	0.1 </br>
 autovacuum_analyze_threshold	50 </br>
@@ -57,37 +59,47 @@ autovacuum_work_mem	-1</br>
 >tps = 441.906617 (without initial connection time) </br>
 
 Попробуем выставить более агрессивные настройки: </br>
+
 ALTER SYSTEM SET autovacuum_naptime=15;</br>
 ALTER SYSTEM SET autovacuum_vacuum_threshold=25;</br>
 ALTER SYSTEM SET autovacuum_vacuum_scale_factor=0.05;</br>
 ALTER SYSTEM SET autovacuum_vacuum_cost_delay=10;</br>
 ALTER SYSTEM SET autovacuum_vacuum_cost_limit=1000;</br>
 
-progress: 60.0 s,   444.7 tps, lat 17.978 ms stddev 9.755</br>
-progress: 120.0 s, 440.9 tps, lat 18.143 ms stddev 9.814</br>
-progress: 180.0 s, 440.5 tps, lat 18.161 ms stddev 9.738</br>
-progress: 240.0 s, 436.6 tps, lat 18.322 ms stddev 9.888</br>
-progress: 300.0 s, 436.5 tps, lat 18.328 ms stddev 9.830</br>
-progress: 360.0 s, 436.8 tps, lat 18.312 ms stddev 9.786</br>
-progress: 420.0 s, 435.3 tps, lat 18.378 ms stddev 9.789</br>
-progress: 480.0 s, 435.4 tps, lat 18.374 ms stddev 9.842</br>
-progress: 540.0 s, 420.3 tps, lat 19.034 ms stddev 10.496</br>
-progress: 600.0 s, 434.2 tps, lat 18.423 ms stddev 9.886</br>
+>progress: 60.0 s,   444.7 tps, lat 17.978 ms stddev 9.755</br>
+>progress: 120.0 s, 440.9 tps, lat 18.143 ms stddev 9.814</br>
+>progress: 180.0 s, 440.5 tps, lat 18.161 ms stddev 9.738</br>
+>progress: 240.0 s, 436.6 tps, lat 18.322 ms stddev 9.888</br>
+>progress: 300.0 s, 436.5 tps, lat 18.328 ms stddev 9.830</br>
+>progress: 360.0 s, 436.8 tps, lat 18.312 ms stddev 9.786</br>
+>progress: 420.0 s, 435.3 tps, lat 18.378 ms stddev 9.789</br>
+>progress: 480.0 s, 435.4 tps, lat 18.374 ms stddev 9.842</br>
+>progress: 540.0 s, 420.3 tps, lat 19.034 ms stddev 10.496</br>
+>progress: 600.0 s, 434.2 tps, lat 18.423 ms stddev 9.886</br>
 
-tps = 436.126770 (without initial connection time) </br>
+>tps = 436.126770 (without initial connection time) </br>
 
 Как видим, производительность просела </br>
 
 Отключим автовакуум вообще:</br>
 Alter system set autovacuum='off';</br>
 
-progress: 60.0 s,   449.4 tps, lat 17.789 ms stddev 9.825</br>
-progress: 120.0 s, 448.8 tps, lat 17.824 ms stddev 9.927</br>
-progress: 180.0 s, 447.1 tps, lat 17.892 ms stddev 9.867</br>
-progress: 240.0 s, 449.1 tps, lat 17.812 ms stddev 9.760</br>
-progress: 300.0 s, 449.5 tps, lat 17.798 ms stddev 9.868</br>
-progress: 360.0 s, 448.8 tps, lat 17.824 ms stddev 9.805</br>
-progress: 420.0 s, 444.8 tps, lat 17.982 ms stddev 9.889</br>
-progress: 480.0 s, 445.7 tps, lat 17.950 ms stddev 9.931</br>
-progress: 540.0 s, 446.3 tps, lat 17.924 ms stddev 9.867</br>
-progress: 600.0 s, 443.0 tps, lat 18.058 ms stddev 9.907</br>
+>progress: 60.0 s,   449.4 tps, lat 17.789 ms stddev 9.825</br>
+>progress: 120.0 s, 448.8 tps, lat 17.824 ms stddev 9.927</br>
+>progress: 180.0 s, 447.1 tps, lat 17.892 ms stddev 9.867</br>
+>progress: 240.0 s, 449.1 tps, lat 17.812 ms stddev 9.760</br>
+>progress: 300.0 s, 449.5 tps, lat 17.798 ms stddev 9.868</br>
+>progress: 360.0 s, 448.8 tps, lat 17.824 ms stddev 9.805</br>
+>progress: 420.0 s, 444.8 tps, lat 17.982 ms stddev 9.889</br>
+>progress: 480.0 s, 445.7 tps, lat 17.950 ms stddev 9.931</br>
+>progress: 540.0 s, 446.3 tps, lat 17.924 ms stddev 9.867</br>
+>progress: 600.0 s, 443.0 tps, lat 18.058 ms stddev 9.907</br>
+
+>tps = 447.253578 (without initial connection time)
+
+На графике: </br>
+<img width="602" alt="4_graphic" src="https://user-images.githubusercontent.com/44090170/224508477-95ae9b12-4059-4c58-a86f-ec7635dd1667.png">
+</br>
+
+Вывод: в данном случае лучше всего использовать максимально щадящие настройки автовакуума.
+
