@@ -62,6 +62,7 @@ SELECT * FROM pg_stat_bgwriter - дает только общее количес
 >ALTER SYSTEM SET log_checkpoints=TRUE </br>
 
 Затем, после того как pgbench отработал, смотрим что попало в лог postgres:</br>
+>cat postgresql-14-main.log | grep "checkpoint "</br>
 
 2023-03-16 17:34:21.607 UTC [3414] LOG:  checkpoint starting: time<br>
 2023-03-16 17:34:36.096 UTC [3414] LOG:  checkpoint complete: wrote 288 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=14.408 s, sync=0.049 s, total=14.489 s; sync files=16, longest=0.010 s, average=0.004 s; distance=2085 kB, estimate=2085 kB<br>
