@@ -41,11 +41,18 @@
 2023-03-16 22:07:39.234 UTC [11023] postgres@testdb STATEMENT:  update test set name='wer' where id=1;</br>
 
 
-
-
-
-
 ### 2. Смоделируйте ситуацию обновления одной и той же строки тремя командами UPDATE в разных сеансах. Изучите возникшие блокировки в представлении pg_locks и убедитесь, что все они понятны. Пришлите список блокировок и объясните, что значит каждая.
+pid  |locktype     |lockid |mode            |granted|
+-----+-------------+-------+----------------+-------+
+11544|relation     |test   |RowExclusiveLock|true   |
+11023|relation     |test   |RowExclusiveLock|true   |
+11532|relation     |test   |RowExclusiveLock|true   |
+11023|transactionid|4050824|ExclusiveLock   |true   |
+11532|transactionid|4050824|ShareLock       |false  |
+11532|transactionid|4050825|ExclusiveLock   |true   |
+11544|transactionid|4050827|ExclusiveLock   |true   |
+11532|tuple        |test:5 |ExclusiveLock   |true   |
+11544|tuple        |test:5 |ExclusiveLock   |false  |
 
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
