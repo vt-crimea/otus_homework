@@ -113,6 +113,40 @@ SELECT * FROM pg_stat_bgwriter - дает только общее количес
 Этот интервал (15с) мы и видим между checkpoint starting и checkpoint complete.
 
 ### Сравните tps в синхронном/асинхронном режиме утилитой pgbench. Объясните полученный результат.
+Включаем асинхронный режим:
+>ALTER SYSTEM SET synchronous_commit = 'off';
+
+затем рестартуем postgresql и запускаем pgbench по новой с теми же параметрами: </br>
+>root@ubuntu:/var/log/postgresql# systemctl restart postgresql</br>
+>root@ubuntu:/var/log/postgresql# sudo -u postgres pgbench  -c8 -P 60 -T 600 -U postgres postgres</br>
+>
+>pgbench (14.7 (Ubuntu 14.7-0ubuntu0.22.04.1))</br>
+>starting vacuum...end.</br>
+>progress: 60.0 s, 1276.9 tps, lat 6.261 ms stddev 4.030</br>
+>progress: 120.0 s, 1263.5 tps, lat 6.330 ms stddev 4.146</br>
+>progress: 180.0 s, 1266.3 tps, lat 6.318 ms stddev 4.161</br>
+>progress: 240.0 s, 1268.2 tps, lat 6.307 ms stddev 4.069</br>
+>progress: 300.0 s, 1256.7 tps, lat 6.366 ms stddev 4.390</br>
+>progress: 360.0 s, 1239.1 tps, lat 6.456 ms stddev 4.698</br>
+>progress: 420.0 s, 1258.9 tps, lat 6.355 ms stddev 4.131</br>
+>progress: 480.0 s, 1289.6 tps, lat 6.203 ms stddev 4.094</br>
+>progress: 540.0 s, 1280.6 tps, lat 6.247 ms stddev 4.064</br>
+>progress: 600.0 s, 1293.7 tps, lat 6.183 ms stddev 4.024</br>
+>transaction type: <builtin: TPC-B (sort of)></br>
+
+
+>scaling factor: 1
+>query mode: simple
+>number of clients: 8
+>number of threads: 1
+>duration: 600 s
+>number of transactions actually processed: 761616
+>latency average = 6.302 ms
+>latency stddev = 4.185 ms
+>initial connection time = 28.930 ms
+>tps = 1269.335938 (without initial connection time)
+
+
 ### Создайте новый кластер с включенной контрольной суммой страниц. Создайте таблицу. Вставьте несколько значений. Выключите кластер. Измените пару байт в таблице. 
 
 ### Включите кластер и сделайте выборку из таблицы. Что и почему произошло? как проигнорировать ошибку и продолжить работу?
