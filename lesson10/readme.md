@@ -52,6 +52,7 @@ pid  |locktype     |lockid |mode            |granted|</br>
 11544|relation     |test   |RowExclusiveLock|true   | - блокировка таблицы (на уровне строки)</br> 
 11023|relation     |test   |RowExclusiveLock|true   | - блокировка таблицы (на уровне строки)</br>
 11532|relation     |test   |RowExclusiveLock|true   | - блокировка таблицы (на уровне строки)</br>
+
 11532|tuple        |test:5 |ExclusiveLock   |true   | - блокировка версии строки</br>
 11544|tuple        |test:5 |ExclusiveLock   |false  | - блокировка версии строки</br>
 
