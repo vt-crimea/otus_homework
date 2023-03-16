@@ -188,6 +188,12 @@ pg_ctlcluster 14 new start
 >postgres=# create table test(id int, name varchar);</br>
 >CREATE TABLE</br>
 
+Вставляем в нее строку:</br>
+
+>postgres=# insert into test(id,name) values (1,'qqq');</br>
+>
+>INSERT 0 1
+
 Находим, в каком каталоге база: </br>
 >postgres=# SELECT oid, datname FROM pg_catalog.pg_database;</br>
 >  oid  |  datname</br>
