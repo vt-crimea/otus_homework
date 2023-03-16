@@ -133,20 +133,77 @@ SELECT * FROM pg_stat_bgwriter - дает только общее количес
 >progress: 540.0 s, 1280.6 tps, lat 6.247 ms stddev 4.064</br>
 >progress: 600.0 s, 1293.7 tps, lat 6.183 ms stddev 4.024</br>
 >transaction type: <builtin: TPC-B (sort of)></br>
+>scaling factor: 1</br>
+>query mode: simple</br>
+>number of clients: 8</br>
+>number of threads: 1</br>
+>duration: 600 s</br>
+>number of transactions actually processed: 761616</br>
+>latency average = 6.302 ms</br>
+>latency stddev = 4.185 ms</br>
+>initial connection time = 28.930 ms</br>
+>tps = 1269.335938 (without initial connection time)</br>
 
-
->scaling factor: 1
->query mode: simple
->number of clients: 8
->number of threads: 1
->duration: 600 s
->number of transactions actually processed: 761616
->latency average = 6.302 ms
->latency stddev = 4.185 ms
->initial connection time = 28.930 ms
->tps = 1269.335938 (without initial connection time)
+Как видно из полученного результата, tps увеличился почти в 3 раза. </br>
+Это происходит потому, что в асинхронном режиме сервер сообщает об успешном завершении сразу, как только транзакция будет завершена логически, прежде чем сгенерированные записи WAL фактически будут записаны на диск.
 
 
 ### Создайте новый кластер с включенной контрольной суммой страниц. Создайте таблицу. Вставьте несколько значений. Выключите кластер. Измените пару байт в таблице. 
+
+Создаем кластер:
+
+>pg_createcluster 14 new -p 5433 -- --data-checksums </br>
+>Creating new PostgreSQL cluster 14/new ...</br>
+>/usr/lib/postgresql/14/bin/initdb -D /var/lib/postgresql/14/new --auth-local peer --auth-host scram-sha-256 --no-instructions --data-checksums</br>
+>The files belonging to this database system will be owned by user "postgres".</br>
+>This user must also own the server process.</br>
+>
+>The database cluster will be initialized with locale "ru_RU.UTF-8".</br>
+>The default database encoding has accordingly been set to "UTF8".</br>
+>The default text search configuration will be set to "russian".</br>
+>
+>Data page checksums are enabled.</br>
+>
+>fixing permissions on existing directory /var/lib/postgresql/14/new ... ok</br>
+>creating subdirectories ... ok</br>
+>selecting dynamic shared memory implementation ... posix</br>
+>selecting default max_connections ... 100</br>
+>selecting default shared_buffers ... 128MB</br>
+>selecting default time zone ... Etc/UTC</br>
+>creating configuration files ... ok</br>
+>running bootstrap script ... ok</br>
+>performing post-bootstrap initialization ... ok</br>
+>syncing data to disk ... ok</br>
+>Ver Cluster Port Status Owner    Data directory             Log file</br>
+>14  new     5433 down   postgres /var/lib/postgresql/14/new /var/log/postgresql/postgresql-14-new.log</br>
+
+Запускаем его:</br>
+pg_ctlcluster 14 new start
+>sudo -u postgres psql -p 5433</br>
+>
+>psql (14.7 (Ubuntu 14.7-0ubuntu0.22.04.1))</br>
+>Type "help" for help.</br>
+
+Создаем таблицу:
+>postgres=# create table test(id int, name varchar);</br>
+>CREATE TABLE</br>
+
+Находим, в каком каталоге база: </br>
+>postgres=# SELECT oid, datname FROM pg_catalog.pg_database;</br>
+>  oid  |  datname</br>
+>-------+-----------</br>
+> 13761 | postgres</br>
+>     1 | template1</br>
+> 13760 | template0</br>
+>(3 rows)</br>
+
+Находим, в каком файле находится таблица:
+>postgres=# SELECT relname, relfilenode FROM pg_class where relname='test';</br>
+> relname | relfilenode</br>
+>---------+-------------</br>
+> test    |       16384</br>
+>(1 row)</br>
+
+
 
 ### Включите кластер и сделайте выборку из таблицы. Что и почему произошло? как проигнорировать ошибку и продолжить работу?
