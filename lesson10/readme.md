@@ -58,7 +58,75 @@ pid  |locktype     |lockid |mode            |granted|</br>
 
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
-### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
+В 1м окне:</br>
+>begin; </br>
+>update test set name = 'a' where id=1;</br>
 
-Задание со звездочкой*
-Попробуйте воспроизвести такую ситуацию.
+Во 2м окне:</br>
+>begin;</br>
+>update test set name = 'b' where id=2;</br>
+
+В 3м окне:</br>
+>begin;</br>
+>update test set name = 'c' where id=3;</br>
+
+Возвращаюсь в 1е:</br>
+>begin;</br>
+>update test set name = 'a' where id=3;</br>
+
+2е:</br>
+>begin;</br>
+>update test set name = 'b' where id=1;</br>
+
+3е:</br>
+>begin;</br>
+>update test set name = 'c' where id=2;</br>
+
+В логе:
+
+2023-03-17 13:41:11.551 UTC [14346] postgres@testdb ERROR:  deadlock detected</br>
+2023-03-17 13:41:11.551 UTC [14346] postgres@testdb DETAIL:  Process 14346 waits for ShareLock on transaction 4050876; blocked by process 14347.</br>
+        Process 14347 waits for ShareLock on transaction 4050875; blocked by process 14345.</br>
+        Process 14345 waits for ShareLock on transaction 4050877; blocked by process 14346.</br>
+        Process 14346: UPDATE test SET name = 'b' WHERE id = 2</br>
+        Process 14347: UPDATE test SET name = 'b' WHERE id = 1</br>
+        Process 14345: UPDATE test SET name = 'c' WHERE id = 3</br>
+
+
+### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
+Могут, если они будут делать массовое обновление в разном порядке.
+
+### Задание со звездочкой*
+### Попробуйте воспроизвести такую ситуацию.
+
+Тестовые данные: </br>
+--таблица
+>CREATE TABLE accounts (id bigint generated always as identity, name varchar, amount numeric);</br>
+>CREATE INDEX ON accounts(amount DESC);</br>
+>
+>--данные
+>INSERT INTO accounts (name, amount)</br>
+>SELECT 'abc' AS name, 100\*ROW_NUMBER() OVER (ORDER by gs) AS amount</br>
+>FROM generate_series(1, 15) gs</br>
+>
+>--меделенный апдейт
+>CREATE FUNCTION inc_slow(n numeric) RETURNS numeric AS $$</br>
+>  SELECT pg_sleep(1);</br>
+>    SELECT n + 100.00;</br>
+>$$ LANGUAGE SQL;</br>
+
+Теперь в одном окне:</br>
+>UPDATE accounts SET amount = inc_slow(amount);
+
+В другом окне:</br>
+>SET enable_seqscan = off;</br>
+>set enable_bitmapscan = off;</br>
+>UPDATE accounts SET amount = inc_slow(amount);</br>
+
+Результат:
+ ERROR: deadlock detected </br>
+  Подробности: Process 16231 waits for ShareLock on transaction 4050936; blocked by process 16229.</br>
+Process 16229 waits for ShareLock on transaction 4050937; blocked by process 16231.
+
+
+
